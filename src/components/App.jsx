@@ -1,24 +1,19 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import useFetcher from '../hooks/useFetcher'
-import getMovies from '../Utils/getMovies'
+
 import Loading from './Loading'
 import Movies from './Movies'
 
 function App () {
   const searchRef = useRef(null)
-  const { data: movies, loading, error } = useFetcher()
+  const [query, setQuery] = useState('naruto')
+  const { dataState: movies, loading } = useFetcher(query)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // const { data } = await getMovies(searchRef.current.value)
-    // if (data.Error) {
-    //   setError(data.Error)
-    //   setMovies([])
-    // } else {
-    //   setMovies(data.Search)
-    // }
-    const { data } = await getMovies(searchRef.current.value)
-    console.log(data)
+    setQuery(searchRef.current.value)
+    // searchRef.current.value
+    e.target.reset()
   }
 
   return (
@@ -29,6 +24,7 @@ function App () {
           <input
             ref={searchRef} type='search'
             className='form-control' placeholder='Nombre de la película'
+            name='buscador' autoFocus
           />
           <button className='btn btn-primary'>Buscar</button>
         </div>
