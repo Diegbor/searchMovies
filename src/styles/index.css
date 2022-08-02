@@ -24,3 +24,9 @@ ul{
 img{
   height: 350px;
 }
+.card-img-top{
+  object-fit: cover;
+}
+a{
+  text-decoration: none;
+}
